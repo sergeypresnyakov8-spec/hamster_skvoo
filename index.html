@@ -23,5 +23,30 @@
   <body class="bg-[#0B0D14] text-[#F4F1EA] antialiased selection:bg-[#E5A93C]/30 selection:text-[#F8D482]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        var devEntry = document.querySelector('script[src*="/src/main.tsx"]');
+        if (!devEntry) return;
+        setTimeout(function () {
+          if (window.__ZK_MOUNTED__) return;
+          fetch('/src/main.tsx', { method: 'HEAD' })
+            .then(function (r) {
+              var ct = (r.headers.get('content-type') || '').toLowerCase();
+              if (r.ok && ct.indexOf('javascript') !== -1) return;
+              return fetch('./docs/index.html', { method: 'HEAD' }).then(function (d) {
+                if (d.ok) {
+                  window.location.replace('./docs/' + window.location.search + window.location.hash);
+                } else {
+                  var root = document.getElementById('root');
+                  if (root) {
+                    root.innerHTML = '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:sans-serif;text-align:center"><div><h2 style="color:#E5A93C;margin-bottom:8px">Звёздный Король</h2><p style="color:#9AA3B5;font-size:14px;max-width:360px">Для запуска на GitHub Pages выберите источник <b>GitHub Actions</b> или ветку <b>main /docs</b> в настройках репозитория (Settings → Pages).</p></div></div>';
+                  }
+                }
+              });
+            })
+            .catch(function () {});
+        }, 700);
+      });
+    </script>
   </body>
 </html>
