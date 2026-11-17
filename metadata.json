@@ -1,0 +1,6 @@
+{
+  "name": "Звёздный Король",
+  "description": "Космический тактический коллекционный idle-менеджер в стиле Hamster King для Android PWA и долгосрочной игры с переносом сохранений.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
