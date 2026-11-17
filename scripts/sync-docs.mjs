@@ -14,4 +14,5 @@ if (fs.existsSync(distDir)) {
   if (fs.existsSync(indexHtml)) {
     fs.copyFileSync(indexHtml, notFoundHtml);
   }
+  fs.writeFileSync(path.resolve(docsDir, '.nojekyll'), '\n');
 }
